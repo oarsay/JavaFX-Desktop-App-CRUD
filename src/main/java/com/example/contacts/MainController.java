@@ -4,17 +4,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     private Button btnDelete;
@@ -60,17 +64,20 @@ public class MainController {
 
     @FXML
     void onDeleteButtonClick(ActionEvent event) {
-
+        deleteRecord();
+        clearTextFields();
     }
 
     @FXML
     void onInsertButtonClick(ActionEvent event) {
-
+        insertRecord();
+        clearTextFields();
     }
 
     @FXML
     void onUpdateButtonClick(ActionEvent event) {
-
+        updateRecord();
+        clearTextFields();
     }
 
     public Connection getConnection(){
@@ -79,14 +86,13 @@ public class MainController {
     }
 
     public ObservableList<Book> getBookList(){
-
         ObservableList<Book> bookList = FXCollections.observableArrayList();
         Statement st;
         ResultSet rs;
 
         try {
             st = getConnection().createStatement();
-            rs = st.executeQuery("SELECT * FROM books");
+            rs = st.executeQuery("SELECT * FROM \"Books\"");
             Book book;
             while(rs.next()){
                 book = new Book(
@@ -105,7 +111,6 @@ public class MainController {
 
     public void showBookList(){
         ObservableList<Book> bookList = getBookList();
-
 /*
         These are IDs of the TableView                          These are properties defined
         columns in the Main.fxml file.                          in the Book.java class.
@@ -113,14 +118,64 @@ public class MainController {
           ||                                                                    ||
           \/                                                                    \/
  */
-        colId.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
-        colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("year"));
-        colPages.setCellValueFactory(new PropertyValueFactory<Book, Integer>("pages"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+        colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+        colPages.setCellValueFactory(new PropertyValueFactory<>("pages"));
 
-        
-
+        tvBooks.setItems(bookList);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        showBookList();
+    }
+
+    private void insertRecord(){
+        String query = "INSERT INTO \"Books\" VALUES ("
+                + tfId.getText() + ",'"
+                + tfTitle.getText() + "','"
+                + tfAuthor.getText() + "',"
+                + tfYear.getText() + ","
+                + tfPages.getText() + ")";
+        executeQuery(query);
+        showBookList();
+    }
+
+    private void updateRecord(){
+        String query = "UPDATE \"Books\" SET title = '"
+                + tfTitle.getText() + "', author = '"
+                + tfAuthor.getText() + "', year = "
+                + tfYear.getText() + ", pages = "
+                + tfPages.getText()
+                + "WHERE id = " + tfId.getText() + ";";
+        executeQuery(query);
+        showBookList();
+    }
+
+    private void deleteRecord(){
+        String query = "DELETE from \"Books\" WHERE id = " + tfId.getText();
+        executeQuery(query);
+        showBookList();
+    }
+
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearTextFields(){
+        tfId.setText("");
+        tfTitle.setText("");
+        tfAuthor.setText("");
+        tfYear.setText("");
+        tfPages.setText("");
+    }
 }
