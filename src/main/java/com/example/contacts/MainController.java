@@ -8,13 +8,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -63,7 +68,7 @@ public class MainController implements Initializable {
     private TableView<Book> tvBooks;
 
     @FXML
-    void onDeleteButtonClick(ActionEvent event) {
+    void onDeleteButtonClick(ActionEvent event) throws URISyntaxException {
         showDialog();
         clearTextFields();
     }
@@ -184,7 +189,7 @@ public class MainController implements Initializable {
         showBookList();
     }
 
-    private void showDialog(){
+    private void showDialog() throws URISyntaxException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete record");
         alert.setHeaderText("Are you sure you want to delete this record?");

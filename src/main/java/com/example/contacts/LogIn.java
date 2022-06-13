@@ -34,6 +34,9 @@ public class LogIn {
     private Label lblDontHaveAnAccount;
 
     @FXML
+    private Label lblLoginMessage;
+
+    @FXML
     private PasswordField pfPassword;
 
     @FXML
@@ -67,33 +70,33 @@ public class LogIn {
     }
 
     @FXML
-    void onGoToSignUp(MouseEvent event) {
-        System.out.println("Clicked!");
+    void onGoToSignUp(MouseEvent event) throws IOException {
+        Main main = new Main();
+        main.changeSceneTo("SignUp.fxml");
     }
 
     private void checkLogin() throws IOException, SQLException {
         boolean validation = false;
 
         if(Objects.equals(tfUserId.getText(), "") || Objects.equals(pfPassword.getText(), "")){
-            System.out.println("Kullanici adi ve/veya sifre bos birakilamaz!");
+            lblLoginMessage.setText("All fields are required.");
         }
         else{
             try{
                 User user = getUserFromDB(Integer.parseInt(tfUserId.getText()));
 
                 if(user == null){
-                    System.out.println("Kullanici bulunamadi!");
+                    lblLoginMessage.setText("Incorrect user ID or password.");
                 }
                 else if(user.getId() == Integer.parseInt(tfUserId.getText()) &&
                         user.getPassword().equals(pfPassword.getText())){
-                    System.out.println("Giris basarili!");
                     validation = true;
                 }
                 else{
-                    System.out.println("Yanlis kullanici adi ve/veya sifre!");
+                    lblLoginMessage.setText("Incorrect user ID or password.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("User ID, integer bir deger olmalidir!");
+                lblLoginMessage.setText("User ID must be an integer.");
             }
         }
 

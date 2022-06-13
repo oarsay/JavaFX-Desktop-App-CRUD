@@ -49,5 +49,6 @@
       <Label fx:id="lblUserId" layoutX="397.0" layoutY="160.0" prefHeight="29.0" prefWidth="72.0" style="-fx-font-size: 16;" text="User ID:" />
       <Label fx:id="lblDontHaveAnAccount" layoutX="510.0" layoutY="282.0" opacity="0.54" text="Don't have an account?" />
       <Text fx:id="txtSignUp" fill="#0e1b80" layoutX="668.0" layoutY="294.0" onMouseClicked="#onGoToSignUp" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.81" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Sign Up" />
+      <Label fx:id="lblLoginMessage" layoutX="511.0" layoutY="140.0" prefHeight="16.0" prefWidth="271.0" style="-fx-font-weight: bold;" text=" " textFill="#ff1100" />
    </children>
 </AnchorPane>
