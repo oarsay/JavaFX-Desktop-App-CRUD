@@ -5,10 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -17,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -65,7 +64,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onDeleteButtonClick(ActionEvent event) {
-        deleteRecord();
+        showDialog();
         clearTextFields();
     }
 
@@ -91,6 +90,18 @@ public class MainController implements Initializable {
         tfYear.setText("" + book.getYear());
         tfPages.setText("" + book.getPages());
 
+    }
+
+    @FXML
+    void onMouseEntered(MouseEvent event) {
+        Main m = new Main();
+        m.setCursorTo(Cursor.HAND);
+    }
+
+    @FXML
+    void onMouseExited(MouseEvent event) {
+        Main m = new Main();
+        m.setCursorTo(Cursor.DEFAULT);
     }
 
     public Connection getConnection(){
@@ -171,6 +182,20 @@ public class MainController implements Initializable {
         String query = "DELETE from \"Books\" WHERE id = " + tfId.getText();
         executeQuery(query);
         showBookList();
+    }
+
+    private void showDialog(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete record");
+        alert.setHeaderText("Are you sure you want to delete this record?");
+        String s ="This record will be deleted permanently... ";
+        alert.setContentText(s);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+            deleteRecord();
+        }
     }
 
     private void executeQuery(String query) {

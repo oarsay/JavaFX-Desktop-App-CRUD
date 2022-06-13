@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="426.0" prefWidth="800.0" style="-fx-background-color: e0f2f1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.contacts.LogIn">
+<AnchorPane onKeyPressed="#onKeyPressed" prefHeight="426.0" prefWidth="800.0" style="-fx-background-color: e0f2f1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.contacts.LogIn">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <left>
@@ -39,12 +40,14 @@
             <Font size="16.0" />
          </font>
       </PasswordField>
-      <Button fx:id="btnLogin" layoutX="537.0" layoutY="246.0" mnemonicParsing="false" onAction="#onLoginButtonClick" style="-fx-background-color: #198754;" text="Login" textFill="WHITE">
+      <Button fx:id="btnLogin" layoutX="580.0" layoutY="244.0" mnemonicParsing="false" onAction="#onLoginButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" style="-fx-background-color: #198754;" text="Login" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
       <Label fx:id="lblPassword" layoutX="397.0" layoutY="200.0" style="-fx-font-size: 16;" text="Password:" />
       <Label fx:id="lblUserId" layoutX="397.0" layoutY="160.0" prefHeight="29.0" prefWidth="72.0" style="-fx-font-size: 16;" text="User ID:" />
+      <Label fx:id="lblDontHaveAnAccount" layoutX="510.0" layoutY="282.0" opacity="0.54" text="Don't have an account?" />
+      <Text fx:id="txtSignUp" fill="#0e1b80" layoutX="668.0" layoutY="294.0" onMouseClicked="#onGoToSignUp" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.81" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Sign Up" />
    </children>
 </AnchorPane>

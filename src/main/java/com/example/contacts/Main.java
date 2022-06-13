@@ -2,6 +2,7 @@ package com.example.contacts;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -29,5 +30,9 @@ public class Main extends Application {
     public void changeSceneTo(String newScene) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(newScene)));
         stg.getScene().setRoot(pane);
+    }
+
+    public void setCursorTo(Cursor cursor){
+        stg.getScene().setCursor(cursor);
     }
 }

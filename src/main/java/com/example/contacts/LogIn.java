@@ -2,10 +2,15 @@ package com.example.contacts;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,14 +31,44 @@ public class LogIn {
     private Label lblUserId;
 
     @FXML
+    private Label lblDontHaveAnAccount;
+
+    @FXML
     private PasswordField pfPassword;
 
     @FXML
     private TextField tfUserId;
 
     @FXML
+    private Text txtSignUp;
+
+
+    @FXML
     void onLoginButtonClick(ActionEvent event) throws IOException, SQLException {
         checkLogin();
+    }
+
+    @FXML
+    void onMouseEntered(MouseEvent event) {
+        Main m = new Main();
+        m.setCursorTo(Cursor.HAND);
+    }
+
+    @FXML
+    void onMouseExited(MouseEvent event) {
+        Main m = new Main();
+        m.setCursorTo(Cursor.DEFAULT);
+    }
+
+    @FXML
+    void onKeyPressed(KeyEvent event) throws SQLException, IOException {
+        if(event.getCode() == KeyCode.ENTER)
+            checkLogin();
+    }
+
+    @FXML
+    void onGoToSignUp(MouseEvent event) {
+        System.out.println("Clicked!");
     }
 
     private void checkLogin() throws IOException, SQLException {
