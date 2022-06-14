@@ -3,14 +3,11 @@ package com.example.contacts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
+import javafx.scene.effect.DropShadow;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -43,7 +40,7 @@ public class LogIn {
     private TextField tfUserId;
 
     @FXML
-    private Text txtSignUp;
+    private Label lblSignUp;
 
 
     @FXML
@@ -55,12 +52,22 @@ public class LogIn {
     void onMouseEntered(MouseEvent event) {
         Main m = new Main();
         m.setCursorTo(Cursor.HAND);
+
+        switch (((Control) event.getSource()).getId()) {
+            case "btnLogin" -> btnLogin.setEffect(new DropShadow());
+            case "lblSignUp" -> lblSignUp.setEffect(new DropShadow());
+        }
     }
 
     @FXML
     void onMouseExited(MouseEvent event) {
         Main m = new Main();
         m.setCursorTo(Cursor.DEFAULT);
+
+        switch (((Control) event.getSource()).getId()) {
+            case "btnLogin" -> btnLogin.setEffect(null);
+            case "lblSignUp" -> lblSignUp.setEffect(null);
+        }
     }
 
     @FXML
@@ -143,3 +150,4 @@ public class LogIn {
         }
     }
 }
+

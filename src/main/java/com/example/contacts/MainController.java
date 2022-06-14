@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -101,12 +102,24 @@ public class MainController implements Initializable {
     void onMouseEntered(MouseEvent event) {
         Main m = new Main();
         m.setCursorTo(Cursor.HAND);
+
+        switch (((Control) event.getSource()).getId()) {
+            case "btnInsert" -> btnInsert.setEffect(new DropShadow());
+            case "btnUpdate" -> btnUpdate.setEffect(new DropShadow());
+            case "btnDelete" -> btnDelete.setEffect(new DropShadow());
+        }
     }
 
     @FXML
     void onMouseExited(MouseEvent event) {
         Main m = new Main();
         m.setCursorTo(Cursor.DEFAULT);
+
+        switch (((Control) event.getSource()).getId()) {
+            case "btnInsert" -> btnInsert.setEffect(null);
+            case "btnUpdate" -> btnUpdate.setEffect(null);
+            case "btnDelete" -> btnDelete.setEffect(null);
+        }
     }
 
     public Connection getConnection(){
