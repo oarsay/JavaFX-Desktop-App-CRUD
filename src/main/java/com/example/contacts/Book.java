@@ -6,13 +6,15 @@ public class Book {
     private String author;
     private int year;
     private int pages;
+    private String description;
 
-    public Book(int id, String title, String author, int year, int pages) {
+    public Book(int id, String title, String author, int year, int pages, String description) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.year = year;
         this.pages = pages;
+        this.description = description;
     }
 
     public int getId() {
@@ -53,5 +55,13 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

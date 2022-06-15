@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="800.0" style="-fx-background-color: e0f2f1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.contacts.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onEmptyAreaClick" prefHeight="426.0" prefWidth="800.0" style="-fx-background-color: e0f2f1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.contacts.Main">
    <children>
       <VBox layoutX="14.0" layoutY="62.0" prefHeight="200.0" prefWidth="80.0" spacing="20.0">
          <children>

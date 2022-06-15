@@ -50,7 +50,7 @@ public class LogIn {
 
     @FXML
     void onMouseEntered(MouseEvent event) {
-        Main m = new Main();
+        Launcher m = new Launcher();
         m.setCursorTo(Cursor.HAND);
 
         switch (((Control) event.getSource()).getId()) {
@@ -61,7 +61,7 @@ public class LogIn {
 
     @FXML
     void onMouseExited(MouseEvent event) {
-        Main m = new Main();
+        Launcher m = new Launcher();
         m.setCursorTo(Cursor.DEFAULT);
 
         switch (((Control) event.getSource()).getId()) {
@@ -78,7 +78,7 @@ public class LogIn {
 
     @FXML
     void onGoToSignUp(MouseEvent event) throws IOException {
-        Main main = new Main();
+        Launcher main = new Launcher();
         main.changeSceneTo("SignUp.fxml");
     }
 
@@ -108,7 +108,7 @@ public class LogIn {
         }
 
         if(validation){
-            Main main = new Main();
+            Launcher main = new Launcher();
             main.changeSceneTo("Main.fxml");
         }
     }

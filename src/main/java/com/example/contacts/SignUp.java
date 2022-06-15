@@ -1,6 +1,5 @@
 package com.example.contacts;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -57,13 +56,13 @@ public class SignUp {
 
     @FXML
     void onGoToLogIn(MouseEvent event) throws IOException {
-        Main main = new Main();
+        Launcher main = new Launcher();
         main.changeSceneTo("LogIn.fxml");
     }
 
     @FXML
     void onMouseEntered(MouseEvent event) {
-        Main m = new Main();
+        Launcher m = new Launcher();
         m.setCursorTo(Cursor.HAND);
 
         switch (((Control) event.getSource()).getId()) {
@@ -74,7 +73,7 @@ public class SignUp {
 
     @FXML
     void onMouseExited(MouseEvent event) {
-        Main m = new Main();
+        Launcher m = new Launcher();
         m.setCursorTo(Cursor.DEFAULT);
 
         switch (((Control) event.getSource()).getId()) {
@@ -110,7 +109,7 @@ public class SignUp {
                 else{
                     saveUserToDB(tfUserId.getText(), pfPassword.getText());
 
-                    Main main = new Main();
+                    Launcher main = new Launcher();
                     main.changeSceneTo("Main.fxml");
                 }
             } catch (NumberFormatException e) {
