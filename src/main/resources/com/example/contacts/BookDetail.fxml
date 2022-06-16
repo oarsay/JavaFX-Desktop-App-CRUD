@@ -24,12 +24,12 @@
                         <Insets bottom="10.0" left="15.0" top="15.0" />
                      </VBox.margin>
                   </ImageView>
-                  <ImageView fitHeight="337.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="254.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/sample_book_cover.png" />
                      </image>
                      <VBox.margin>
-                        <Insets bottom="10.0" left="30.0" />
+                        <Insets left="30.0" top="50.0" />
                      </VBox.margin>
                   </ImageView>
                </children>
@@ -59,12 +59,12 @@
                         <Insets right="10.0" top="10.0" />
                      </VBox.margin>
                   </Separator>
-                  <Label fx:id="lblDescription" prefHeight="373.0" prefWidth="529.0" text="&#9;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&#10;&#10;&#9;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.&#10;" wrapText="true">
+                  <Label fx:id="lblDescription" alignment="TOP_LEFT" centerShape="false" contentDisplay="TOP" prefHeight="373.0" prefWidth="529.0" text="Description" wrapText="true">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <padding>
-                        <Insets right="10.0" />
+                        <Insets right="10.0" top="15.0" />
                      </padding>
                      <VBox.margin>
                         <Insets bottom="15.0" />

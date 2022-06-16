@@ -12,29 +12,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onEmptyAreaClick" prefHeight="426.0" prefWidth="800.0" style="-fx-background-color: e0f2f1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.contacts.Main">
    <children>
-      <VBox layoutX="14.0" layoutY="62.0" prefHeight="200.0" prefWidth="80.0" spacing="20.0">
+      <VBox layoutX="10.0" layoutY="62.0" prefHeight="200.0" prefWidth="84.0" spacing="20.0">
          <children>
-            <Label text="ID:">
+            <Label fx:id="lblId" text="ID:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Title:">
+            <Label fx:id="lblTitle" text="Title:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Author:">
+            <Label fx:id="lblAuthor" text="Author:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Year:">
+            <Label fx:id="lblYear" text="Year:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Pages:">
+            <Label fx:id="lblPages" text="Pages:">
                <font>
                   <Font size="16.0" />
                </font>
@@ -85,17 +85,30 @@
             <TableColumn fx:id="colPages" prefWidth="63.0" text="Pages" />
         </columns>
       </TableView>
-      <Button fx:id="btnInsert" layoutX="28.0" layoutY="299.0" mnemonicParsing="false" onAction="#onInsertButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #198754; -fx-background-radius: 8px;" text="Insert" textFill="WHITE">
+      <Button fx:id="btnInsert" layoutX="28.0" layoutY="341.0" mnemonicParsing="false" onAction="#onInsertButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #198754; -fx-background-radius: 8px;" text="Insert" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnUpdate" layoutX="128.0" layoutY="299.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #ffc107; -fx-background-radius: 8px;" text="Update" textFill="WHITE">
+      <Button fx:id="btnUpdate" layoutX="128.0" layoutY="341.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #ff9b00; -fx-background-radius: 8px;" text="Update" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnDelete" layoutX="227.0" layoutY="299.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #dc3545; -fx-background-radius: 8px;" text="Delete" textFill="WHITE">
+      <Button fx:id="btnDelete" layoutX="227.0" layoutY="341.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #dc3545; -fx-background-radius: 8px;" text="Delete" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblDescription" layoutX="10.0" layoutY="271.0" prefHeight="20.0" prefWidth="113.0" text="Description:">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Button fx:id="btnEditor" layoutX="143.0" layoutY="266.0" mnemonicParsing="false" onAction="#onEditorButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="24.0" prefWidth="188.0" style="-fx-background-color: #37474f; -fx-background-radius: 4px;" text="Editor" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>

@@ -4,13 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,11 +22,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Main implements Initializable {
 
+    private static Stage stg2;
     @FXML
     private Button btnDelete;
 
@@ -32,6 +37,9 @@ public class Main implements Initializable {
 
     @FXML
     private Button btnUpdate;
+
+    @FXML
+    private Button btnEditor;
 
     @FXML
     private TableColumn<Book, String> colAuthor;
@@ -64,7 +72,7 @@ public class Main implements Initializable {
     private TextField tfYear;
 
     @FXML
-    private TableView<Book> tvBooks;
+    public TableView<Book> tvBooks;
 
     @FXML
     void onDeleteButtonClick(ActionEvent event) throws URISyntaxException {
@@ -87,7 +95,45 @@ public class Main implements Initializable {
             updateRecord();
             clearTextFields();
         }
+    }
 
+    @FXML
+    void onEditorButtonClick(ActionEvent event) throws IOException {
+
+        if(tfId.getText().equals("")){
+            Editor.description = "";
+        }
+        else{
+            Editor.description = getDescriptionFromDB(Integer.parseInt(tfId.getText()));
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Editor.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stg2 = stage;
+        stage.setTitle("Description Editor");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private String getDescriptionFromDB(int id) {
+        Statement st;
+        ResultSet rs;
+        String query = "SELECT description FROM Public.\"Books\" WHERE id = " + id;
+        String result = "";
+
+        try {
+            st = getConnection().createStatement();
+            rs = st.executeQuery(query);
+
+            while(rs.next()){
+                result = rs.getString("description");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @FXML
@@ -99,6 +145,11 @@ public class Main implements Initializable {
         tfAuthor.setText(book.getAuthor());
         tfYear.setText("" + book.getYear());
         tfPages.setText("" + book.getPages());
+
+        // no need to update description field each time user clicks on a book
+        // we can wait until user clicks the 'Editor' button.
+        // and then we will update Editor's content only once.
+        // therefore implementation of 'update editor content' will be in the onEditorButtonClick, and not here.
 
         if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
             onGoToBookDetail(book);
@@ -119,25 +170,27 @@ public class Main implements Initializable {
 
     @FXML
     void onMouseEntered(MouseEvent event) {
-        Launcher m = new Launcher();
-        m.setCursorTo(Cursor.HAND);
+        Launcher l = new Launcher();
+        l.setCursorTo(Cursor.HAND);
 
         switch (((Control) event.getSource()).getId()) {
             case "btnInsert" -> btnInsert.setEffect(new DropShadow());
             case "btnUpdate" -> btnUpdate.setEffect(new DropShadow());
             case "btnDelete" -> btnDelete.setEffect(new DropShadow());
+            case "btnEditor" -> btnEditor.setEffect(new DropShadow());
         }
     }
 
     @FXML
     void onMouseExited(MouseEvent event) {
-        Launcher m = new Launcher();
-        m.setCursorTo(Cursor.DEFAULT);
+        Launcher l = new Launcher();
+        l.setCursorTo(Cursor.DEFAULT);
 
         switch (((Control) event.getSource()).getId()) {
             case "btnInsert" -> btnInsert.setEffect(null);
             case "btnUpdate" -> btnUpdate.setEffect(null);
             case "btnDelete" -> btnDelete.setEffect(null);
+            case "btnEditor" -> btnEditor.setEffect(null);
         }
     }
 
@@ -192,6 +245,7 @@ public class Main implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showBookList();
+        clearTextFields();
     }
 
     private void insertRecord(){
@@ -210,7 +264,7 @@ public class Main implements Initializable {
                 + tfAuthor.getText() + "',"
                 + tfYear.getText() + ","
                 + tfPages.getText() + ",'"
-                + description + "')";
+                + Editor.description + "')";
         executeQuery(query);
         showBookList();
     }
@@ -220,7 +274,8 @@ public class Main implements Initializable {
                 + tfTitle.getText() + "', author = '"
                 + tfAuthor.getText() + "', year = "
                 + tfYear.getText() + ", pages = "
-                + tfPages.getText()
+                + tfPages.getText() + ", description = '"
+                + Editor.description + "'"
                 + "WHERE id = " + tfId.getText() + ";";
         executeQuery(query);
         showBookList();
@@ -264,5 +319,11 @@ public class Main implements Initializable {
         tfAuthor.setText("");
         tfYear.setText("");
         tfPages.setText("");
+        Editor.description = "";
     }
+
+    public void setCursorTo(Cursor cursor){
+        stg2.getScene().setCursor(cursor);
+    }
+
 }

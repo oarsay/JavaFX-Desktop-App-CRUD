@@ -2,12 +2,15 @@ package com.example.contacts;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -59,5 +62,6 @@ public class BookDetail {
         lblTitle.setText(book.getTitle());
         lblAuthor.setText("by " + book.getAuthor());
         lblDescription.setText(book.getDescription());
+        lblDescription.setAlignment(Pos.TOP_LEFT);
     }
 }
