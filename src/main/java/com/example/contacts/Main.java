@@ -2,6 +2,8 @@ package com.example.contacts;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +66,9 @@ public class Main implements Initializable {
 
     @FXML
     private TextField tfPages;
+
+    @FXML
+    private TextField tfSearch;
 
     @FXML
     private TextField tfTitle;
@@ -227,11 +232,11 @@ public class Main implements Initializable {
     public void showBookList(){
         ObservableList<Book> bookList = getBookList();
 /*
-        These are IDs of the TableView                          These are properties defined
-        columns in the Main.fxml file.                          in the Book.java class.
-          ||                                                                    ||
-          ||                                                                    ||
-          \/                                                                    \/
+        These are IDs of the TableView            These are properties defined
+        columns in the Main.fxml file.            in the Book.java class.
+          ||                                                      ||
+          ||                                                      ||
+          \/                                                      \/
  */
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -239,7 +244,43 @@ public class Main implements Initializable {
         colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
         colPages.setCellValueFactory(new PropertyValueFactory<>("pages"));
 
-        tvBooks.setItems(bookList);
+        FilteredList<Book> filteredList = new FilteredList<>(bookList, b -> true);
+
+        tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(book -> {
+
+                //if no search, then no filter
+                if(newValue == null || newValue.isEmpty() || newValue.isBlank()){
+                    return true;
+                }
+
+                String searchKeyword = newValue.toLowerCase();
+
+                if(String.valueOf(book.getId()).contains(searchKeyword)){
+                    return true;
+                }
+                else if(book.getTitle().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }
+                else if(book.getAuthor().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }
+                else if(String.valueOf(book.getYear()).contains(searchKeyword)){
+                    return true;
+                }
+                else if(String.valueOf(book.getPages()).contains(searchKeyword)){
+                    return true;
+                }
+                else
+                    return false;
+            });
+        });
+
+        SortedList<Book> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(tvBooks.comparatorProperty());
+        tvBooks.setItems(sortedList);
+
+        //tvBooks.setItems(bookList);
     }
 
     @Override
